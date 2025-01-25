@@ -31,9 +31,6 @@ public class Bill {
     }
 
     public static void main(String[] args) {
-        Bill bill = new Bill(10, 15, 20, 5, 10, 11);
-        bill.generateBill();
-        /*
         float _pencilCost, _penCost, _eraserCost;
         int _pens, _pencils, _erasers;
         Scanner reader = new Scanner(System.in);
@@ -56,6 +53,6 @@ public class Bill {
 
         Bill bill = new Bill(_pencilCost, _penCost, _eraserCost, _pens, _pencils, _erasers);
         bill.generateBill();
-        */
+
     }
 }

@@ -1,10 +1,11 @@
 /*
  * Assignment 1: Design a car class with attributes like make, model, year, and color. Implement methods to display car details and change the car color.
  */
+import java.util.Scanner;
 
 public class Car {
-	private String model;
-	private int year;
+	private final String model;
+	private final int year;
 	private String color;
 	
 	Car(String _model, int _year, String _color) {
@@ -35,13 +36,18 @@ public class Car {
 	}
 
 	public static void main(String[] args) {
-		String _model = "new";
+		String _model = "latest";
 		int year = 2025;
 		String _color = "white";
-
-		Car c = new Car(_model, 2025, _color);	
+		Car c = new Car(_model, year, _color);
 		c.details();
-		c.changeColor("black");
+		System.out.println();
+
+		Scanner reader = new Scanner(System.in);
+		System.out.println("Enter new color: ");
+		String color = reader.nextLine();
+
+		c.changeColor(color);
 		c.details();
 	}
 }

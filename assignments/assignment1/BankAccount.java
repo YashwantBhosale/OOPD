@@ -28,7 +28,7 @@ public class BankAccount {
 
     public void withdraw(float amount) {
         if(amount > balance) {
-            System.err.println("Insufficient Bank Balance! You may only withdraw Rs." + balance + " or lesser");
+            System.out.println("Insufficient Bank Balance! You may only withdraw Rs." + balance + " or lesser");
             return;
         }
         balance -= amount;
@@ -56,21 +56,8 @@ public class BankAccount {
         BankAccount myAccount = new BankAccount("Yashwant Bhosale", 612303039, "Savings");
         Scanner reader = new Scanner(System.in);
 
-        myAccount.details();
-
-        System.out.print("\nEnter amount to be deposited: ");
-        float amount = reader.nextFloat();
-        myAccount.deposit(amount);
-
-        myAccount.details();
-
-        System.out.print("\nEnter amount to be withdrawn: ");
-        amount = reader.nextFloat();
-        myAccount.withdraw(amount);
-
-        myAccount.details();
-        /*
         while(true) {
+            System.out.println();
             myAccount.menu();
             int option = reader.nextInt();
             if(option == 4) break;
@@ -96,8 +83,6 @@ public class BankAccount {
                 }
             }
         }
-        */
-
     }
 
 }
