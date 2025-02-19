@@ -1,5 +1,4 @@
 # Objects
----
 ref: [**Classes and Objects in Java**](https://www.geeksforgeeks.org/classes-objects-java/)
 
 ### What are objects?
