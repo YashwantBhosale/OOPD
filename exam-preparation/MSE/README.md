@@ -18,3 +18,4 @@ These are all the folders in this directory:
 7. [Operators](basics/operators.md)
 8. [Typecasting](basics/typecasting.md)
 9. [Constants](basics/constants.md)
+10. [Control Statements](basics/control-statements.md)
