@@ -107,3 +107,37 @@ class Test {
 ```
 Here, the `instanceof` operator checks whether the variable `name` is an instance of the class `String` and returns `true` because the variable `name` is an instance of the class `String`.
 
+### Precedence and Associativity
+- **Precedence of arithmetic operators** defines the order in which expressions are evaluated.
+- precedence of operators (highest to lowest):
+1. `*`, `/`, `%`
+2. `+`, `-`
+- all expressions are evaluated from left to right, except for the assignment operator `=`, which is evaluated from right to left.
+
+#### Example
+```java
+public class Main {
+    public static void main(String[] args) {
+        int result = 10 + 2 * 5 - 3 / 3;
+        System.out.println(result);
+    }
+}
+```
+
+**Output**:
+```
+19
+```
+**explanation**:
+- `2 * 5` is evaluated first, which results in `10`.
+- `10 + 10` is evaluated next, which results in `20`.
+- `3 / 3` is evaluated next, which results in `1`.
+- `20 - 1` is evaluated last, which results in `19`.
+
+#### Associativity
+- **Associativity** of operators defines the order in which operators of the same precedence are evaluated.
+- **Associativity of arithmetic operators** is left-to-right.
+
+#### Use of Parentheses
+- Parentheses can be used to change the order of evaluation of expressions.
+- Expressions inside parentheses are evaluated first.
