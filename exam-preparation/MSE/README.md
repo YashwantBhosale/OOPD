@@ -6,7 +6,8 @@ These are all the folders in this directory:
 ```bash
 .
 ├── abstraction-methods
-└── basics
+├── basics
+└── inheritence
 ```
 
 #### Table of Contents
@@ -26,5 +27,9 @@ These are all the folders in this directory:
 - **Abstraction Methods**
 1. [Encapsulation](abstraction-methods/encapsulation.md)
 2. [Constructors](abstraction-methods/constructors.md)
+3. [Destructors and Garbage Collection](abstraction-methods/destructors.md)
+
+- **Inheritance**
+1. [Inheritance](inheritence/inheritance.md)
 
     
