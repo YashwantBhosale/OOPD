@@ -12,3 +12,4 @@ These are all the folders in this directory:
 1. [Classes](basics/classes.md)
 2. [Objects](basics/objects.md)
 3. [Access Modifiers](basics/access-modifiers.md)
+4. [Data Types](basics/data-types.md)
