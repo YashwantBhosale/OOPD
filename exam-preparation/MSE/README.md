@@ -5,10 +5,12 @@ This folder contains all the notes about the subject that i personally compiled.
 These are all the folders in this directory:
 ```bash
 .
+├── abstraction-methods
 └── basics
 ```
 
 #### Table of Contents
+- **Basics**
 1. [Classes](basics/classes.md)
 2. [Objects](basics/objects.md)
 3. [Access Modifiers](basics/access-modifiers.md)
@@ -19,3 +21,9 @@ These are all the folders in this directory:
 8. [Typecasting](basics/typecasting.md)
 9. [Constants](basics/constants.md)
 10. [Control Statements](basics/control-statements.md)
+11. [Arrays](basics/arrays.md)
+
+- **Abstraction Methods**
+1. [Encapsulation](abstraction-methods/encapsulation.md)
+
+    
