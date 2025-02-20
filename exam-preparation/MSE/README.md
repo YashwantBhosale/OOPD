@@ -16,3 +16,5 @@ These are all the folders in this directory:
 5. [Types of variables](basics/types-of-variables.md)
 6. [Static methods](basics/static-methods.md)
 7. [Operators](basics/operators.md)
+8. [Typecasting](basics/typecasting.md)
+9. [Constants](basics/constants.md)
