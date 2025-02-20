@@ -14,3 +14,4 @@ These are all the folders in this directory:
 3. [Access Modifiers](basics/access-modifiers.md)
 4. [Data Types](basics/data-types.md)
 5. [Types of variables](basics/types-of-variables.md)
+6. [Static methods](basics/static-methods.md)
