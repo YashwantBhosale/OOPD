@@ -42,3 +42,7 @@ class Person {
     }
 }
 ```
+
+#### Security and Controlled Access
+1. Direct modification is prevented
+2. Only controlled access is allowed through public interface of getters and setters

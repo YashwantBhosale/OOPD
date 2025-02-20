@@ -25,5 +25,6 @@ These are all the folders in this directory:
 
 - **Abstraction Methods**
 1. [Encapsulation](abstraction-methods/encapsulation.md)
+2. [Constructors](abstraction-methods/constructors.md)
 
     
