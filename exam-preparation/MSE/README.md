@@ -26,6 +26,7 @@ These are all the folders in this directory:
 12. [Strings](basics/strings.md)
 13. [StringBuffer](basics/string-buffer.md)
 14. [StringBuilder](basics/string-builder.md)
+15. [Vectors](basics/vectors.md)
 
 - **Abstraction Methods**
 1. [Encapsulation](abstraction-methods/encapsulation.md)
