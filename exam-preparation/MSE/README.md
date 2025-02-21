@@ -7,7 +7,7 @@ These are all the folders in this directory:
 .
 ├── abstraction-methods
 ├── basics
-└── inheritence
+└── inheritance
 ```
 
 #### Table of Contents
@@ -34,7 +34,7 @@ These are all the folders in this directory:
 3. [Destructors and Garbage Collection](abstraction-methods/destructors.md)
 
 - **Inheritance**
-1. [Inheritance](inheritence/inheritance.md)
-2. [Interfaces](inheritence/interfaces.md)
-3. [Method Overriding and Overloading](inheritence/method-overriding-overloading.md)
-4. [Abstract Classes](inheritence/abstract-classes.md)
+1. [Inheritance](inheritance/inheritance.md)
+2. [Interfaces](inheritance/interfaces.md)
+3. [Method Overriding and Overloading](inheritance/method-overriding-overloading.md)
+4. [Abstract Classes](inheritance/abstract-classes.md)
