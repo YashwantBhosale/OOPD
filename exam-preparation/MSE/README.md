@@ -23,6 +23,7 @@ These are all the folders in this directory:
 9. [Constants](basics/constants.md)
 10. [Control Statements](basics/control-statements.md)
 11. [Arrays](basics/arrays.md)
+12. [Strings](basics/strings.md)
 
 - **Abstraction Methods**
 1. [Encapsulation](abstraction-methods/encapsulation.md)
