@@ -24,6 +24,8 @@ These are all the folders in this directory:
 10. [Control Statements](basics/control-statements.md)
 11. [Arrays](basics/arrays.md)
 12. [Strings](basics/strings.md)
+13. [StringBuffer](basics/string-buffer.md)
+14. [StringBuilder](basics/string-builder.md)
 
 - **Abstraction Methods**
 1. [Encapsulation](abstraction-methods/encapsulation.md)
@@ -35,4 +37,3 @@ These are all the folders in this directory:
 2. [Interfaces](inheritence/interfaces.md)
 3. [Method Overriding and Overloading](inheritence/method-overriding-overloading.md)
 4. [Abstract Classes](inheritence/abstract-classes.md)
-    
