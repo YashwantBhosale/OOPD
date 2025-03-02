@@ -2,8 +2,6 @@
  * Develop an Online Payment System where users can make payments using different payment methods such as Credit Card, Debit Card, UPI, and Digital Wallets.
 */
 
-
-
 public class Bank {
 	private float balance;
 	private String name;
