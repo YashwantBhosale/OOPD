@@ -1,10 +1,6 @@
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.lang.ClassNotFoundException;
-import java.lang.InstantiationException;
-import java.lang.IllegalAccessException;
-import java.lang.reflect.InvocationTargetException;
 
 abstract class Test {
     public String name;

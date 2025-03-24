@@ -117,11 +117,9 @@ public class ConcurrentBankTransactions {
  */
 
 /*
-
-   1. we start with creating 3 bank accounts for Yash, Alhad, and Suswan.
-   2. then we create 9 threads, 3 for each account. 1 for deposit, 1 for withdraw, and 1 for getting details.
+    1. we start with creating 3 bank accounts for Yash, Alhad, and Suswan.
+    2. then we create 9 threads, 3 for each account. 1 for deposit, 1 for withdraw, and 1 for getting details.
     3. we start all the threads.
     4. the threads run concurrently and the output is printed.
     5. the output may vary because of the concurrent execution of threads.
-    
  */

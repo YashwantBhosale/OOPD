@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>design-patterns.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="design-patterns-in-java">Design Patterns in Java</h1>
+<h4 id="table-of-contents">Table of Contents</h4>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#what-are-design-patterns">What Are Design Patterns?</a></li>
+<li><a href="#why-use-design-patterns">Why Use Design Patterns?</a></li>
+<li><a href="#categories-of-design-patterns">Categories of Design Patterns</a>
+<ul>
+<li><a href="#creational-patterns">Creational Patterns</a></li>
+<li><a href="#structural-patterns">Structural Patterns</a></li>
+<li><a href="#behavioral-patterns">Behavioral Patterns</a></li>
+</ul>
+</li>
+<li><a href="#detailed-overview-of-key-design-patterns">Detailed Overview of Key Design Patterns</a>
+<ul>
+<li><a href="#creational-patterns-detailed">Creational Patterns Detailed</a>
+<ul>
+<li><a href="#factory-method-pattern">Factory Method Pattern</a></li>
+<li><a href="#abstract-factory-pattern">Abstract Factory Pattern</a></li>
+<li><a href="#singleton-pattern">Singleton Pattern</a></li>
+<li><a href="#builder-pattern">Builder Pattern</a></li>
+<li><a href="#prototype-pattern">Prototype Pattern</a></li>
+</ul>
+</li>
+<li><a href="#structural-patterns-detailed">Structural Patterns Detailed</a>
+<ul>
+<li><a href="#adapter-pattern">Adapter Pattern</a></li>
+<li><a href="#bridge-pattern">Bridge Pattern</a></li>
+<li><a href="#composite-pattern">Composite Pattern</a></li>
+<li><a href="#decorator-pattern">Decorator Pattern</a></li>
+<li><a href="#facade-pattern">Facade Pattern</a></li>
+<li><a href="#flyweight-pattern">Flyweight Pattern</a></li>
+<li><a href="#proxy-pattern">Proxy Pattern</a></li>
+</ul>
+</li>
+<li><a href="#behavioral-patterns-detailed">Behavioral Patterns Detailed</a>
+<ul>
+<li><a href="#chain-of-responsibility-pattern">Chain of Responsibility Pattern</a></li>
+<li><a href="#command-pattern">Command Pattern</a></li>
+<li><a href="#iterator-pattern">Iterator Pattern</a></li>
+<li><a href="#mediator-pattern">Mediator Pattern</a></li>
+<li><a href="#memento-pattern">Memento Pattern</a></li>
+<li><a href="#observer-pattern">Observer Pattern</a></li>
+<li><a href="#state-pattern">State Pattern</a></li>
+<li><a href="#strategy-pattern">Strategy Pattern</a></li>
+<li><a href="#template-method-pattern">Template Method Pattern</a></li>
+<li><a href="#visitor-pattern">Visitor Pattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<hr>
+<h2 id="introduction">Introduction</h2>
+<p>In software engineering, <strong>design patterns</strong> are standardized solutions to common design problems. They capture best practices evolved by experienced developers over many years and can be reused in various contexts. In Java, design patterns help create robust, scalable, and maintainable code by promoting principles such as loose coupling, encapsulation, and reusability.</p>
+<hr>
+<h2 id="what-are-design-patterns">What Are Design Patterns?</h2>
+<p><strong>Design patterns</strong> are general, reusable solutions to common problems in software design. They are not finished code that can be directly inserted into a program; rather, they provide a template or blueprint for solving issues that arise frequently during development.</p>
+<ul>
+<li><strong>Reusable Solutions:</strong> Patterns encapsulate proven solutions to recurring design problems.</li>
+<li><strong>Language Independence:</strong> Although many examples are given in Java, the concepts are applicable across various programming languages.</li>
+<li><strong>Communication:</strong> They provide a common vocabulary for developers, making it easier to discuss design ideas.</li>
+<li><strong>Best Practices:</strong> Using design patterns encourages best practices such as separation of concerns, maintainability, and scalability.</li>
+</ul>
+<p>ref:- <a href="https://www.tutorialspoint.com/design_pattern/index.htm">TutorialsPoint Design Patterns Tutorial</a> and <a href="https://refactoring.guru/design-patterns/java">Refactoring.Guru’s Design Patterns blog</a>.</p>
+<hr>
+<h2 id="why-use-design-patterns">Why Use Design Patterns?</h2>
+<p>Design patterns are used to:</p>
+<ul>
+<li><strong>Solve Common Problems:</strong> They provide time-tested solutions to recurring design challenges. Also, they help in avoiding common pitfalls and mistakes.</li>
+<li><strong>Improve Code Quality:</strong> By promoting principles like loose coupling and high cohesion, patterns help in writing cleaner, more maintainable code.</li>
+<li><strong>Facilitate Communication:</strong> A shared vocabulary (e.g., “Singleton” or “Factory Method”) makes it easier for developers to understand and discuss design decisions.</li>
+<li><strong>Enhance Flexibility and Reusability:</strong> Patterns help in creating modular designs that can be extended or modified with minimal impact on existing code.</li>
+<li><strong>Reduce Complexity:</strong> They simplify complex designs by breaking them down into smaller, more manageable components.</li>
+</ul>
+<p>ref:- <a href="https://www.geeksforgeeks.org/java-design-patterns/">GeeksforGeeks Java Design Patterns Tutorial</a>.</p>
+<hr>
+<h2 id="categories-of-design-patterns">Categories of Design Patterns</h2>
+<p>Design patterns in Java are commonly grouped into three main categories:</p>
+<h3 id="creational-patterns">Creational Patterns</h3>
+<p>These patterns deal with object creation mechanisms. They provide ways to create objects while hiding the creation logic, rather than instantiating objects directly using constructors. Common creational patterns:</p>
+<ul>
+<li><strong>Factory Method Pattern</strong></li>
+<li><strong>Abstract Factory Pattern</strong></li>
+<li><strong>Singleton Pattern</strong></li>
+<li><strong>Builder Pattern</strong></li>
+<li><strong>Prototype Pattern</strong></li>
+</ul>
+<h3 id="structural-patterns">Structural Patterns</h3>
+<p>Structural patterns focus on how classes and objects are composed to form larger structures. They help ensure that if one part of a system changes, the entire system doesn’t need to do the same. Key structural patterns:</p>
+<ul>
+<li><strong>Adapter Pattern</strong></li>
+<li><strong>Bridge Pattern</strong></li>
+<li><strong>Composite Pattern</strong></li>
+<li><strong>Decorator Pattern</strong></li>
+<li><strong>Facade Pattern</strong></li>
+<li><strong>Flyweight Pattern</strong></li>
+<li><strong>Proxy Pattern</strong></li>
+</ul>
+<h3 id="behavioral-patterns">Behavioral Patterns</h3>
+<p>Behavioral patterns are concerned with algorithms and the assignment of responsibilities between objects. They help manage complex control flows and interactions between objects. Important behavioral patterns:</p>
+<ul>
+<li><strong>Chain of Responsibility Pattern</strong></li>
+<li><strong>Command Pattern</strong></li>
+<li><strong>Iterator Pattern</strong></li>
+<li><strong>Mediator Pattern</strong></li>
+<li><strong>Memento Pattern</strong></li>
+<li><strong>Observer Pattern</strong></li>
+<li><strong>State Pattern</strong></li>
+<li><strong>Strategy Pattern</strong></li>
+<li><strong>Template Method Pattern</strong></li>
+<li><strong>Visitor Pattern</strong></li>
+</ul>
+<hr>
+<p>Below is the detailed overview of some of the key design patterns</p>
+<h3 id="creational-patterns-detailed">Creational Patterns Detailed</h3>
+<h4 id="factory-method-pattern">Factory Method Pattern</h4>
+<p>Here, we define an interface for creating an object, but let subclasses decide which class to instantiate. This pattern lets a class defer instantiation to subclasses.
+It means that, instead of directly creating an object, we call a factory method that creates the object. This pattern is useful when a class can’t anticipate the class of objects it must create.
+loose coupling means that the classes are independent of each other. This pattern promotes loose coupling by encapsulating object creation logic in a separate class.</p>
+<p><strong>Description:</strong><br>
+Instead of calling a constructor directly to create an object, a factory method is used. This method encapsulates the object creation process and allows for more flexible and extensible code.</p>
+<p><strong>Example Scenario:</strong><br>
+Imagine you need to create different types of notification objects (e.g., Email, SMS). Instead of using direct instantiation (<code>new EmailNotification()</code>), you can use a factory method that returns the appropriate type based on input.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Encapsulates object creation logic.</li>
+<li>Promotes loose coupling.</li>
+<li>Enhances flexibility and scalability.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can introduce extra layers of abstraction.</li>
+<li>May complicate the code if overused.</li>
+</ul>
+<p><strong>Sample Code:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Shape</span> </span>{
+   <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rectangle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Shape</span> </span>{
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>{
+      System.out.println(<span class="hljs-string">"Inside Rectangle::draw() method."</span>);
+   }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Square</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Shape</span> </span>{
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>{
+      System.out.println(<span class="hljs-string">"Inside Square::draw() method."</span>);
+   }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Shape</span> </span>{
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>{
+      System.out.println(<span class="hljs-string">"Inside Circle::draw() method."</span>);
+   }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShapeFactory</span> </span>{
+	
+   <span class="hljs-comment">//use getShape method to get object of type shape </span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Shape <span class="hljs-title">getShape</span><span class="hljs-params">(String shapeType)</span></span>{
+      <span class="hljs-keyword">if</span>(shapeType == <span class="hljs-keyword">null</span>){
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+      }		
+      <span class="hljs-keyword">if</span>(shapeType.equalsIgnoreCase(<span class="hljs-string">"CIRCLE"</span>)){
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Circle();
+         
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shapeType.equalsIgnoreCase(<span class="hljs-string">"RECTANGLE"</span>)){
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Rectangle();
+         
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(shapeType.equalsIgnoreCase(<span class="hljs-string">"SQUARE"</span>)){
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Square();
+      }
+      
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+   }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FactoryPatternDemo</span> </span>{
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+      ShapeFactory shapeFactory = <span class="hljs-keyword">new</span> ShapeFactory();
+
+      <span class="hljs-comment">//get an object of Circle and call its draw method.</span>
+      Shape shape1 = shapeFactory.getShape(<span class="hljs-string">"CIRCLE"</span>);
+
+      <span class="hljs-comment">//call draw method of Circle</span>
+      shape1.draw();
+
+      <span class="hljs-comment">//get an object of Rectangle and call its draw method.</span>
+      Shape shape2 = shapeFactory.getShape(<span class="hljs-string">"RECTANGLE"</span>);
+
+      <span class="hljs-comment">//call draw method of Rectangle</span>
+      shape2.draw();
+
+      <span class="hljs-comment">//get an object of Square and call its draw method.</span>
+      Shape shape3 = shapeFactory.getShape(<span class="hljs-string">"SQUARE"</span>);
+
+      <span class="hljs-comment">//call draw method of square</span>
+      shape3.draw();
+   }
+}
+</div></code></pre>
+<p><strong>output:</strong></p>
+<pre class="hljs"><code><div>Inside Circle::draw() method.
+Inside Rectangle::draw() method.
+Inside Square::draw() method.
+</div></code></pre>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When a class cannot anticipate the class of objects it must create.</li>
+<li>To centralize object creation logic for easy maintenance.</li>
+</ul>
+<p>ref:- <a href="https://www.tutorialspoint.com/design_pattern/factory_pattern.htm">TutorialsPoint’s Factory Pattern explanation</a>.</p>
+<hr>
+<h4 id="abstract-factory-pattern">Abstract Factory Pattern</h4>
+<p>Provide an interface for creating families of related or dependent objects without specifying their concrete classes.</p>
+<p>This pattern is a step beyond the Factory Method. It involves multiple factory methods grouped under a single interface. It’s used when the system needs to be independent of how its objects are created, composed, and represented.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Ensures consistency among products.</li>
+<li>Supports the addition of new product families without changing existing code.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can become complex as the number of products increases.</li>
+</ul>
+<p><strong>Example:</strong><br>
+i tried following example to understand the concept of abstract factory pattern
+basically, we have two types of factories, one for windows and one for linux. Each factory creates a set of products (e.g., buttons, text fields) that are designed to work together.
+this isolates the creation of product objects from the client code, allowing the same client code to work with different types of products.</p>
+<p><strong>Sample Code:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Button</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">paint</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">TextField</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">render</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WindowsButton</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Button</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">paint</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"Rendering a button in Windows style"</span>);
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WindowsTextField</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TextField</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">render</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"Rendering a text field in Windows style"</span>);
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinuxButton</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Button</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">paint</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"Rendering a button in Linux style"</span>);
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinuxTextField</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">TextField</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">render</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"Rendering a text field in Linux style"</span>);
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">GUIFactory</span> </span>{
+    <span class="hljs-function">Button <span class="hljs-title">createButton</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function">TextField <span class="hljs-title">createTextField</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WindowsFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">GUIFactory</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Button <span class="hljs-title">createButton</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WindowsButton();
+    }
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TextField <span class="hljs-title">createTextField</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> WindowsTextField();
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LinuxFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">GUIFactory</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Button <span class="hljs-title">createButton</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LinuxButton();
+    }
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> TextField <span class="hljs-title">createTextField</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> LinuxTextField();
+    }
+}
+</div></code></pre>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When a system must be configured with one of multiple families of products.</li>
+<li>When product objects are designed to work together and you need to enforce this constraint.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/abstract-factory">Refactoring.Guru’s Abstract Factory Pattern</a>.</p>
+<hr>
+<h4 id="singleton-pattern">Singleton Pattern</h4>
+<p>Ensure a class has only one instance and provide a global point of access to it.</p>
+<p>The Singleton pattern restricts the instantiation of a class to one &quot;single&quot; instance. This is useful when exactly one object is needed to coordinate actions across the system (e.g., a configuration manager or connection pool).</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Controlled access to a single instance.</li>
+<li>Reduces namespace clutter.</li>
+<li>Can be lazily initialized to optimize performance.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can be overused; often considered an anti-pattern if it hides dependencies.</li>
+<li>Difficult to unit test because of its global state.</li>
+</ul>
+<p><strong>Example Code:</strong>
+code reference:- <a href="https://www.geeksforgeeks.org/singleton-class-java/">GFG</a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Singleton</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Singleton instance;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Singleton</span><span class="hljs-params">()</span> </span>{}
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Singleton <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (instance == <span class="hljs-keyword">null</span>) {
+            instance = <span class="hljs-keyword">new</span> Singleton();
+        }
+        <span class="hljs-keyword">return</span> instance;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showMessage</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"Singleton instance says hello!"</span>);
+    }
+}
+</div></code></pre>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When exactly one instance of a class is required to coordinate actions.</li>
+<li>When system-wide configurations or resources must be centralized.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/singleton">Refactoring.Guru Singleton Pattern</a>.</p>
+<hr>
+<h4 id="builder-pattern">Builder Pattern</h4>
+<p>Separate the construction of a complex object from its representation, so that the same construction process can create different representations.</p>
+<p>The Builder pattern is used when an object requires multiple steps for its creation. It allows you to construct objects step by step, offering better control over the construction process. This is especially useful when dealing with objects that have many optional parameters.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Improves readability and maintainability for complex objects.</li>
+<li>Provides a clear separation between object construction and representation.</li>
+<li>Facilitates the creation of immutable objects.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can add extra complexity to the code.</li>
+<li>Overhead in creating builder classes.</li>
+</ul>
+<p><strong>Example Code:</strong>
+code reference:- <a href="https://www.digitalocean.com/community/tutorials/builder-design-pattern-in-java">Digital Ocean</a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Computer</span> </span>{
+    <span class="hljs-keyword">private</span> String CPU;
+    <span class="hljs-keyword">private</span> String RAM;
+
+    <span class="hljs-keyword">private</span> String GPU;
+    <span class="hljs-keyword">private</span> String storage;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Computer</span><span class="hljs-params">(Builder builder)</span> </span>{
+        <span class="hljs-keyword">this</span>.CPU = builder.CPU;
+        <span class="hljs-keyword">this</span>.RAM = builder.RAM;
+        <span class="hljs-keyword">this</span>.GPU = builder.GPU;
+        <span class="hljs-keyword">this</span>.storage = builder.storage;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Builder</span> </span>{
+        <span class="hljs-keyword">private</span> String CPU;
+        <span class="hljs-keyword">private</span> String RAM;
+
+        <span class="hljs-keyword">private</span> String GPU = <span class="hljs-string">"Integrated"</span>;
+        <span class="hljs-keyword">private</span> String storage = <span class="hljs-string">"256GB"</span>;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Builder</span><span class="hljs-params">(String CPU, String RAM)</span> </span>{
+            <span class="hljs-keyword">this</span>.CPU = CPU;
+            <span class="hljs-keyword">this</span>.RAM = RAM;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> Builder <span class="hljs-title">setGPU</span><span class="hljs-params">(String GPU)</span> </span>{
+            <span class="hljs-keyword">this</span>.GPU = GPU;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> Builder <span class="hljs-title">setStorage</span><span class="hljs-params">(String storage)</span> </span>{
+            <span class="hljs-keyword">this</span>.storage = storage;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        }
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> Computer <span class="hljs-title">build</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Computer(<span class="hljs-keyword">this</span>);
+        }
+    }
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"Computer [CPU="</span> + CPU + <span class="hljs-string">", RAM="</span> + RAM + <span class="hljs-string">", GPU="</span> + GPU + <span class="hljs-string">", storage="</span> + storage + <span class="hljs-string">"]"</span>;
+    }
+}
+
+<span class="hljs-comment">// following code should ideally be in main function, but i am writing it here for showing usage</span>
+Computer myComputer = <span class="hljs-keyword">new</span> Computer.Builder(<span class="hljs-string">"Intel i7"</span>, <span class="hljs-string">"16GB"</span>)
+                        .setGPU(<span class="hljs-string">"NVIDIA GTX 1660"</span>)
+                        .setStorage(<span class="hljs-string">"512GB"</span>)
+                        .build();
+System.out.println(myComputer);
+</div></code></pre>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When the construction process of an object is complex.</li>
+<li>When you need to create different representations of an object using the same construction process.</li>
+</ul>
+<p>For a detailed guide, refer to <a href="https://refactoring.guru/design-patterns/builder">Refactoring.Guru’s Builder Pattern</a>.</p>
+<hr>
+<h4 id="prototype-pattern">Prototype Pattern</h4>
+<p>Specify the kinds of objects to create using a prototypical instance, and create new objects by copying this prototype.</p>
+<p>The Prototype pattern is used when the process of creating a new object is resource-intensive or complex. Instead of creating a new object from scratch, you clone an existing object. This pattern is particularly useful when the cost of creating a new object is high.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Can reduce the cost of object creation.</li>
+<li>Useful for objects that have a complex initialization process.</li>
+<li>Allows dynamic configuration of new objects at runtime.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Cloning can be tricky if objects contain circular references.</li>
+<li>Requires careful handling of deep versus shallow copies.</li>
+</ul>
+<p><strong>Example Code:</strong>
+following code is a simple example of prototype pattern, where we have a shape interface and a concrete prototype class Circle which implements the shape interface. We have a client class ShapeClient which takes a prototype object and creates a new shape using the prototype.</p>
+<p>code reference:- <a href="https://www.geeksforgeeks.org/prototype-design-pattern/">GFG</a></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Prototype interface</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Shape</span> </span>{
+    <span class="hljs-function">Shape <span class="hljs-title">clone</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">// Make a copy of itself</span>
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span></span>;    <span class="hljs-comment">// Draw the shape</span>
+}
+
+<span class="hljs-comment">// Concrete prototype</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Shape</span> </span>{
+    <span class="hljs-keyword">private</span> String color;
+
+    <span class="hljs-comment">// When you create a circle, you give it a color.</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Circle</span><span class="hljs-params">(String color)</span> </span>{
+        <span class="hljs-keyword">this</span>.color = color;
+    }
+
+    <span class="hljs-comment">// This creates a copy of the circle.</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Shape <span class="hljs-title">clone</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Circle(<span class="hljs-keyword">this</span>.color);
+    }
+
+    <span class="hljs-comment">// This is how a circle draws itself.</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"Drawing a "</span> + color + <span class="hljs-string">" circle."</span>);
+    }
+}
+
+<span class="hljs-comment">// Client code</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShapeClient</span> </span>{
+    <span class="hljs-keyword">private</span> Shape shapePrototype;
+
+    <span class="hljs-comment">// When you create a client, you give it a prototype (a shape).</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ShapeClient</span><span class="hljs-params">(Shape shapePrototype)</span> </span>{
+        <span class="hljs-keyword">this</span>.shapePrototype = shapePrototype;
+    }
+
+    <span class="hljs-comment">// This method creates a new shape using the prototype.</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Shape <span class="hljs-title">createShape</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> shapePrototype.clone();
+    }
+}
+
+<span class="hljs-comment">// Main class</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PrototypeExample</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>{
+        <span class="hljs-comment">// Create a concrete prototype (a red circle).</span>
+        Shape circlePrototype = <span class="hljs-keyword">new</span> Circle(<span class="hljs-string">"red"</span>);
+
+        <span class="hljs-comment">// Create a client and give it the prototype.</span>
+        ShapeClient client = <span class="hljs-keyword">new</span> ShapeClient(circlePrototype);
+
+        <span class="hljs-comment">// Use the prototype to create a new shape (a red circle).</span>
+        Shape redCircle = client.createShape();
+
+        <span class="hljs-comment">// Draw the newly created red circle.</span>
+        redCircle.draw();
+    }
+}
+</div></code></pre>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When object creation is expensive or complex.</li>
+<li>When you need to create an object that is a copy of an existing object with slight modifications.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/prototype">Refactoring.Guru’s Prototype Pattern</a>.</p>
+<hr>
+<h3 id="structural-patterns-detailed">Structural Patterns Detailed</h3>
+<h4 id="adapter-pattern">Adapter Pattern</h4>
+<p>Convert the interface of a class into another interface clients expect, allowing incompatible interfaces to work together.</p>
+<p>The Adapter pattern wraps an existing class with a new interface so that it can be used in a context where a different interface is expected. It’s often used to integrate classes that otherwise couldn’t work together because of mismatched interfaces.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Promotes reusability of existing classes.</li>
+<li>Facilitates integration between incompatible interfaces.</li>
+<li>Adheres to the Open/Closed Principle by not modifying existing code.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can add additional layers of abstraction.</li>
+<li>Overuse may lead to complicated code architecture.</li>
+</ul>
+<p><strong>Example Code:</strong>
+code referece:- <a href="https://medium.com/@rajeshvelmani/bridging-the-gap-exploring-the-adapter-design-pattern-in-java-823218841a9c">Medium Article</a></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Target interface expected by the client</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">MediaPlayer</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">play</span><span class="hljs-params">(String audioType, String fileName)</span></span>;
+}
+
+<span class="hljs-comment">// Existing class with a different interface</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedMediaPlayer</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">playVlc</span><span class="hljs-params">(String fileName)</span> </span>{
+        System.out.println(<span class="hljs-string">"Playing VLC file: "</span> + fileName);
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">playMp4</span><span class="hljs-params">(String fileName)</span> </span>{
+        System.out.println(<span class="hljs-string">"Playing MP4 file: "</span> + fileName);
+    }
+}
+
+<span class="hljs-comment">// Adapter class that implements the target interface</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MediaAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MediaPlayer</span> </span>{
+    <span class="hljs-keyword">private</span> AdvancedMediaPlayer advancedMediaPlayer = <span class="hljs-keyword">new</span> AdvancedMediaPlayer();
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">play</span><span class="hljs-params">(String audioType, String fileName)</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">"vlc"</span>.equalsIgnoreCase(audioType)) {
+            advancedMediaPlayer.playVlc(fileName);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"mp4"</span>.equalsIgnoreCase(audioType)) {
+            advancedMediaPlayer.playMp4(fileName);
+        }
+    }
+}
+
+<span class="hljs-comment">// Client class</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AudioPlayer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MediaPlayer</span> </span>{
+    <span class="hljs-keyword">private</span> MediaAdapter mediaAdapter;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">play</span><span class="hljs-params">(String audioType, String fileName)</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">"mp3"</span>.equalsIgnoreCase(audioType)) {
+            System.out.println(<span class="hljs-string">"Playing MP3 file: "</span> + fileName);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-string">"vlc"</span>.equalsIgnoreCase(audioType) || <span class="hljs-string">"mp4"</span>.equalsIgnoreCase(audioType)) {
+            mediaAdapter = <span class="hljs-keyword">new</span> MediaAdapter();
+            mediaAdapter.play(audioType, fileName);
+        } <span class="hljs-keyword">else</span> {
+            System.out.println(<span class="hljs-string">"Invalid media. "</span> + audioType + <span class="hljs-string">" format not supported"</span>);
+        }
+    }
+}
+</div></code></pre>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need to integrate an existing class with a new interface.</li>
+<li>When you want to reuse legacy code without modifying it.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/adapter">Refactoring.Guru’s Adapter Pattern</a>.</p>
+<hr>
+<h4 id="bridge-pattern">Bridge Pattern</h4>
+<p>Decouple an abstraction from its implementation so that the two can vary independently.</p>
+<p>The Bridge pattern separates the abstraction (what the object does) from its implementation (how it does it). This is achieved by creating two separate hierarchies—one for the abstraction and one for the implementation—that can evolve independently.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Reduces coupling between abstraction and implementation.</li>
+<li>Enhances flexibility and extensibility.</li>
+<li>Simplifies maintenance and future development.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can result in an increased number of classes.</li>
+<li>Requires careful design to properly separate concerns.</li>
+</ul>
+<p><strong>Code Example:</strong><br>
+A remote control (abstraction) that works with different types of devices (implementations) such as TVs, radios, etc.</p>
+<p>code idea reference:- <a href="https://refactoring.guru/design-patterns/bridge/java/example">refactoring guru</a></p>
+<p><strong>Sample Code Outline:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Abstraction</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RemoteControl</span> </span>{
+    <span class="hljs-keyword">protected</span> Device device;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">RemoteControl</span><span class="hljs-params">(Device device)</span> </span>{
+        <span class="hljs-keyword">this</span>.device = device;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">togglePower</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-comment">// Implementor</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Device</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">turnOn</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">turnOff</span><span class="hljs-params">()</span></span>;
+}
+
+<span class="hljs-comment">// Concrete implementation</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TV</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Device</span> </span>{
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">turnOn</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"TV is now ON"</span>);
+    }
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">turnOff</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"TV is now OFF"</span>);
+    }
+}
+
+<span class="hljs-comment">// Refined Abstraction</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AdvancedRemoteControl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RemoteControl</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AdvancedRemoteControl</span><span class="hljs-params">(Device device)</span> </span>{
+        <span class="hljs-keyword">super</span>(device);
+    }
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">togglePower</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">// Example logic: Check current status then switch state</span>
+        System.out.println(<span class="hljs-string">"Toggling power"</span>);
+        device.turnOn(); <span class="hljs-comment">// or turnOff() based on state</span>
+    }
+}
+</div></code></pre>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you want to allow the abstraction and its implementation to vary independently.</li>
+<li>When changing the implementation should not affect the abstraction’s interface.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/bridge">Refactoring.Guru’s Bridge Pattern</a>.</p>
+<hr>
+<h4 id="composite-pattern">Composite Pattern</h4>
+<p>Compose objects into tree structures to represent part-whole hierarchies, allowing clients to treat individual objects and compositions uniformly.</p>
+<p>The Composite pattern allows you to build complex objects from simpler ones. It lets clients work in a uniform manner with both individual objects and compositions (groups) of objects.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Simplifies client code by treating composite structures uniformly.</li>
+<li>Makes it easier to add new types of components.</li>
+<li>Enhances flexibility in handling hierarchical data.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can make the design overly general.</li>
+<li>Harder to restrict types in the composite structure.</li>
+</ul>
+<p><strong>Example:</strong><br>
+File systems where both files and directories (which contain files) are treated as &quot;components&quot; of the system.
+this is just the idea, the actual code will be more complex.</p>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need to represent part-whole hierarchies.</li>
+<li>When clients should be able to ignore the difference between compositions of objects and individual objects.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/composite">Refactoring.Guru’s Composite Pattern</a>.</p>
+<hr>
+<h4 id="decorator-pattern">Decorator Pattern</h4>
+<p>Dynamically add responsibilities to an object without modifying its code. This pattern is a flexible alternative to subclassing for extending functionality.</p>
+<p>The Decorator pattern involves wrapping an object in a decorator object that adds new behavior before or after delegating to the original object. It is particularly useful when you want to add responsibilities to objects at runtime without affecting other instances of the same class.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Enhances flexibility by adding responsibilities dynamically.</li>
+<li>Supports the Single Responsibility Principle by dividing functionality among classes.</li>
+<li>Can be combined to add multiple behaviors.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can lead to a system with many small classes.</li>
+<li>Increased complexity if overused.</li>
+</ul>
+<p><strong>Example Code:</strong><br>
+ref:- <a href="https://en.wikipedia.org/wiki/Decorator_pattern">Wikipedia Decorator Pattern example</a></p>
+<hr>
+<h4 id="facade-pattern">Facade Pattern</h4>
+<p><strong>Intent:</strong><br>
+Provide a simplified interface to a complex subsystem.</p>
+<p><strong>Description:</strong><br>
+The Facade pattern defines a higher-level interface that makes a subsystem easier to use. It hides the complexity of the subsystem by exposing a simple interface.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Simplifies the usage of a complex system.</li>
+<li>Reduces dependencies between subsystems.</li>
+<li>Improves code readability and maintainability.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can limit the flexibility of the subsystem.</li>
+<li>May hide performance bottlenecks.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When a system is very complex or difficult to understand.</li>
+<li>When you want to provide a simple interface to a complicated subsystem.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/facade">Refactoring.Guru’s Facade Pattern</a>.</p>
+<hr>
+<h4 id="flyweight-pattern">Flyweight Pattern</h4>
+<p><strong>Intent:</strong><br>
+Reduce the memory footprint by sharing common parts of the object state between multiple objects.</p>
+<p><strong>Description:</strong><br>
+The Flyweight pattern minimizes memory use by sharing as much data as possible with similar objects. It’s especially useful when working with a large number of objects that have similar characteristics.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Greatly reduces memory usage.</li>
+<li>Improves performance when managing many objects.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can complicate the design.</li>
+<li>May lead to difficulties in managing shared states.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need to handle a large number of similar objects.</li>
+<li>When shared state can be separated from unique object state.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/flyweight">Refactoring.Guru’s Flyweight Pattern</a>.</p>
+<hr>
+<h4 id="proxy-pattern">Proxy Pattern</h4>
+<p><strong>Intent:</strong><br>
+Provide a surrogate or placeholder for another object to control access to it.</p>
+<p><strong>Description:</strong><br>
+The Proxy pattern involves creating a proxy object that acts as an intermediary for requests to the real object. This allows you to add additional behavior such as lazy loading, access control, or logging without changing the original object.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Controls access to the real object.</li>
+<li>Can add security, caching, or logging features transparently.</li>
+<li>Supports lazy initialization.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Adds an extra level of indirection.</li>
+<li>Can complicate the code if not implemented properly.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need to control access to an object.</li>
+<li>When you want to implement lazy loading or add cross-cutting concerns like logging.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/proxy">Refactoring.Guru’s Proxy Pattern</a>.</p>
+<hr>
+<h3 id="behavioral-patterns-detailed">Behavioral Patterns Detailed</h3>
+<h4 id="chain-of-responsibility-pattern">Chain of Responsibility Pattern</h4>
+<p><strong>Intent:</strong><br>
+Avoid coupling the sender of a request to its receiver by giving more than one object a chance to handle the request.</p>
+<p><strong>Description:</strong><br>
+The Chain of Responsibility pattern creates a chain of receiver objects for a request. Each object in the chain either handles the request or passes it along to the next object in the chain.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Reduces coupling between sender and receiver.</li>
+<li>Enhances flexibility in assigning responsibilities.</li>
+<li>Simplifies object interconnections.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can lead to unhandled requests if not designed carefully.</li>
+<li>Difficult to debug when the chain is long.</li>
+</ul>
+<p><strong>Example Scenario:</strong><br>
+Exception handling in a series of catch blocks.</p>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When multiple objects can handle a request.</li>
+<li>When you want to decouple senders and receivers.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/chain-of-responsibility">Refactoring.Guru’s Chain of Responsibility</a>.</p>
+<hr>
+<h4 id="command-pattern">Command Pattern</h4>
+<p><strong>Intent:</strong><br>
+Encapsulate a request as an object, thereby letting you parameterize clients with queues, requests, and operations.</p>
+<p><strong>Description:</strong><br>
+The Command pattern turns a request into a standalone object containing all information about the request. This allows you to decouple the invoker of an operation from the object that actually performs it.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Supports undoable operations.</li>
+<li>Enables queuing or logging of requests.</li>
+<li>Decouples sender from receiver.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can lead to many command classes.</li>
+<li>Overhead of creating command objects.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need to parameterize objects with actions.</li>
+<li>When you require operation queuing, logging, or undo functionality.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/command">Refactoring.Guru’s Command Pattern</a>.</p>
+<hr>
+<h4 id="iterator-pattern">Iterator Pattern</h4>
+<p><strong>Intent:</strong><br>
+Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.</p>
+<p><strong>Description:</strong><br>
+The Iterator pattern separates the traversal of a collection from the collection itself. It allows clients to iterate over complex data structures without needing to know their internal structure.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Simplifies collection traversal.</li>
+<li>Provides a standard iteration interface.</li>
+<li>Hides internal structure.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>May lead to concurrent modification issues if not handled properly.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need a uniform way to traverse a collection.</li>
+<li>When the collection’s internal structure should remain hidden.</li>
+</ul>
+<p>Learn more from <a href="https://refactoring.guru/design-patterns/iterator">Refactoring.Guru’s Iterator Pattern</a>.</p>
+<hr>
+<h4 id="mediator-pattern">Mediator Pattern</h4>
+<p><strong>Intent:</strong><br>
+Reduce direct communication between objects by introducing a mediator object that handles the interactions.</p>
+<p><strong>Description:</strong><br>
+The Mediator pattern centralizes complex communications and control logic between related objects, ensuring that they do not communicate directly. This reduces the dependencies between objects.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Reduces coupling between objects.</li>
+<li>Simplifies object protocols.</li>
+<li>Centralizes complex communication logic.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>The mediator can become overly complex.</li>
+<li>May centralize too much responsibility.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When many objects interact in complex ways.</li>
+<li>When you want to simplify communication between objects.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/mediator">Refactoring.Guru’s Mediator Pattern</a>.</p>
+<hr>
+<h4 id="memento-pattern">Memento Pattern</h4>
+<p><strong>Intent:</strong><br>
+Capture and externalize an object’s internal state so that the object can be restored to this state later without violating encapsulation.</p>
+<p><strong>Description:</strong><br>
+The Memento pattern is used to save and restore the state of an object. It is useful for implementing features like undo/redo.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Preserves encapsulation.</li>
+<li>Supports undo mechanisms.</li>
+<li>Separates state saving from object logic.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can consume significant memory if state is large.</li>
+<li>Increased complexity in managing mementos.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need to restore an object’s state.</li>
+<li>For implementing undo/redo functionality.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/memento">Refactoring.Guru’s Memento Pattern</a>.</p>
+<hr>
+<h4 id="observer-pattern">Observer Pattern</h4>
+<p><strong>Intent:</strong><br>
+Define a one-to-many dependency so that when one object changes state, all its dependents are notified and updated automatically.</p>
+<p><strong>Description:</strong><br>
+The Observer pattern allows an object (subject) to maintain a list of its dependents (observers) and notify them automatically of any state changes, usually by calling one of their methods.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Promotes loose coupling.</li>
+<li>Supports dynamic relationships between objects.</li>
+<li>Useful for event handling systems.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can lead to unexpected updates if not managed correctly.</li>
+<li>May cause performance issues if many observers are involved.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When an object must notify other objects about changes in its state.</li>
+<li>In event-driven systems.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/observer">Refactoring.Guru’s Observer Pattern</a>.</p>
+<hr>
+<h4 id="state-pattern">State Pattern</h4>
+<p><strong>Intent:</strong><br>
+Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.</p>
+<p><strong>Description:</strong><br>
+The State pattern encapsulates varying behavior for the same object based on its state. It lets you change an object’s behavior when its internal state changes, without resorting to large conditional statements.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Improves maintainability by localizing state-specific behavior.</li>
+<li>Eliminates large conditional statements.</li>
+<li>Promotes clear separation of state and behavior.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can increase the number of classes.</li>
+<li>Complexity in managing state transitions.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When an object must change behavior at runtime based on its state.</li>
+<li>To replace complex conditional logic with state-specific classes.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/state">Refactoring.Guru’s State Pattern</a>.</p>
+<hr>
+<h4 id="strategy-pattern">Strategy Pattern</h4>
+<p><strong>Intent:</strong><br>
+Define a family of algorithms, encapsulate each one, and make them interchangeable so that the algorithm can vary independently from clients that use it.</p>
+<p><strong>Description:</strong><br>
+The Strategy pattern allows you to choose an algorithm’s behavior at runtime. It encapsulates different algorithms in separate classes and makes them interchangeable, providing flexibility to change behavior without modifying the client code.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Promotes reusability of algorithms.</li>
+<li>Enables easy switching of algorithms at runtime.</li>
+<li>Adheres to the Open/Closed Principle.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Increased number of classes.</li>
+<li>Clients must be aware of the strategies available.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When multiple algorithms are available for a task.</li>
+<li>To switch behavior dynamically.</li>
+</ul>
+<p>ref:- <a href="https://refactoring.guru/design-patterns/strategy">Refactoring.Guru’s Strategy Pattern</a>.</p>
+<hr>
+<h4 id="template-method-pattern">Template Method Pattern</h4>
+<p><strong>Intent:</strong><br>
+Define the skeleton of an algorithm in a method, deferring some steps to subclasses. This pattern lets subclasses redefine certain steps of an algorithm without changing its structure.</p>
+<p><strong>Description:</strong><br>
+The Template Method pattern provides a base class that implements the overall algorithm structure while allowing subclasses to override specific steps. This ensures a consistent algorithm structure while enabling customization.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Ensures a consistent structure for algorithms.</li>
+<li>Encourages code reuse.</li>
+<li>Simplifies maintenance by centralizing common behavior.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Can limit flexibility if subclasses are forced to follow the predefined structure.</li>
+<li>Subclasses may only partially change the algorithm.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you have a common algorithm with varying steps.</li>
+<li>To enforce an algorithm’s structure while allowing customization.</li>
+</ul>
+<p>ref:- <a href="https://it.wikipedia.org/wiki/Template_method">Wikipedia Template Method Pattern (Italian)</a>.</p>
+<hr>
+<h4 id="visitor-pattern">Visitor Pattern</h4>
+<p><strong>Intent:</strong><br>
+Represent an operation to be performed on elements of an object structure. The Visitor pattern lets you define a new operation without changing the classes of the elements on which it operates.</p>
+<p><strong>Description:</strong><br>
+The Visitor pattern separates an algorithm from the object structure it operates on by using double dispatch. A visitor class is created to perform operations on elements of an object structure, allowing new operations to be added without modifying the element classes.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Adds new operations without modifying object structure.</li>
+<li>Centralizes related operations in one visitor class.</li>
+<li>Supports the Open/Closed Principle.</li>
+</ul>
+<p><strong>Drawbacks:</strong></p>
+<ul>
+<li>Adding new element classes can be cumbersome since every visitor must be updated.</li>
+<li>Can break encapsulation if not designed carefully.</li>
+</ul>
+<p><strong>When to Use:</strong></p>
+<ul>
+<li>When you need to perform operations across a complex object structure.</li>
+<li>When you want to add new behavior without changing the element classes.</li>
+</ul>
+<p>ref:- <a href="https://en.wikipedia.org/wiki/Visitor_pattern">Wikipedia’s Visitor Pattern</a>.</p>
+<hr>
+<h2 id="conclusion">Conclusion</h2>
+<p>Design patterns in Java are essential tools that help solve recurring design problems using proven, best-practice solutions. By understanding and applying these patterns, you can write code that is more modular, scalable, and maintainable. Each pattern serves a specific purpose—whether it is to create objects efficiently (creational patterns), structure complex systems (structural patterns), or manage algorithms and interactions (behavioral patterns).</p>
+<hr>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.tutorialspoint.com/design_pattern/index.htm">TutorialsPoint Design Patterns Tutorial</a></li>
+<li><a href="https://refactoring.guru/design-patterns/java">Refactoring.Guru – Design Patterns in Java</a></li>
+<li><a href="https://www.geeksforgeeks.org/java-design-patterns/">GeeksforGeeks Java Design Patterns Tutorial</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/java-design-patterns-example-tutorial">DigitalOcean Java Design Patterns Example Tutorial</a></li>
+<li><a href="https://www.tpointtech.com/design-patterns-in-java">Tpoint Tech – Java Design Patterns</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Decorator_pattern">Wikipedia – Decorator Pattern</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Visitor_pattern">Wikipedia – Visitor Pattern</a></li>
+<li><a href="https://it.wikipedia.org/wiki/Template_method">Wikipedia – Template Method Pattern (Italian)</a></li>
+</ul>
+
+</body>
+</html>
