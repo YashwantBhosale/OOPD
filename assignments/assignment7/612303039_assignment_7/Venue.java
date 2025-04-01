@@ -26,6 +26,7 @@ public abstract class Venue implements VenueInterface {
         for (int i = 0; i < this.slotRecords.size(); i++) {
             System.out.print("slot: " + this.slotRecords.get(i).getSlot().getName() + " - ");
             
+            // Corrected logic here
             if (slotRecords.get(i).getBookedUser() == null) {
                 System.out.println("Available");
             } else {
