@@ -8,7 +8,7 @@ public class SlotRecord {
 	public SlotRecord(Slot slot){
 		this.slot = slot;
 		this.bookedUser = null;
-		this.waitingQueue = new Vector<>();
+		this.waitingQueue = new Vector<User>();
 	}
 
 	public Slot getSlot() {
