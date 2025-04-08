@@ -3,7 +3,28 @@ import java.util.*;
 import queuepackage.Queue;
 import stackpackage.Stack;
 
+class Utils {
+    // generic method to print an array
+    public static <T> void print(T[] arr) {
+        for (T element : arr) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+
+    // generic method to swap two elements
+    public static <T> void swap(T[] arr, int i, int j) {
+        T temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+
+}
+
+
 public class Main {
+
     public static void main(String[] args) {
         // 1. ArrayList
         System.out.println("ArrayList:");
@@ -106,5 +127,23 @@ public class Main {
         stringQueue.display();
         System.out.println();
 
+        // Generic Method Examples
+        System.out.println("Generic Method Examples:");
+        Integer[] intArray = {1, 2, 3, 4, 5};
+        String[] strArray = {"alhad", "suswan", "aryan"};
+
+        System.out.println("Integer Array:");
+        Utils.print(intArray);
+
+        System.out.println("String Array:");
+        Utils.print(strArray);
+
+        System.out.println("Swapping elements in Integer Array:");
+        Utils.swap(intArray, 0, 4);
+        Utils.print(intArray);
+
+        System.out.println("Swapping elements in String Array:");
+        Utils.swap(strArray, 0, 2);
+        Utils.print(strArray);
     }
 }
