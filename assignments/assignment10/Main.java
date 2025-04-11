@@ -2,14 +2,14 @@ import java.util.Vector;
 
 /*
 We want to:
-•Store multiple types of products (Books, Electronics, Clothing, Food, Furniture, and Toys).
-•Use a generic function to display product details.
-•Use a generic class to store and retrieve different product types.
+• Store multiple types of products (Books, Electronics, Clothing, Food, Furniture, and Toys).
+• Use a generic function to display product details.
+• Use a generic class to store and retrieve different product types.
 
 Implementing Generics in Java using 6 classes:
-•A generic class (Store<T>) to store different types of objects.
-•  Six different product classes (Book, Electronic, Clothing, Food, Furniture, and Toy).
-•    A generic function to display details of any object.
+• A generic class (Store<T>) to store different types of objects.
+• Six different product classes (Book, Electronic, Clothing, Food, Furniture, and Toy).
+• A generic function to display details of any object.
 */
 
 class Store<T> {
@@ -112,12 +112,18 @@ class Furniture extends Item {
 }
 
 public class Main {
+	// display details of any class
 	public static <T extends Item> void displayDetails(Store<T> store) {
 		System.out.println("Store: " + store.getName());
 		for (int i = 0; i < store.size(); i++) {
 			System.out.println(store.getItem(i).details());
 		}		
 		System.out.println();
+	}
+
+	// generic function to display details of any object
+	public static <T extends Item> void displayDetails(T item) {
+		System.out.println(item.details());
 	}
 
 	public static void main(String[] args) {
@@ -154,5 +160,11 @@ public class Main {
 		displayDetails(bookStore);
 		displayDetails(electronicStore);
 		displayDetails(clothingStore);
+
+		// Display details of a single item
+		System.out.println("Single Item Details:");
+		displayDetails(books[0]);
+		displayDetails(electronics[0]);
+		displayDetails(clothing[0]);
 	}
 }
